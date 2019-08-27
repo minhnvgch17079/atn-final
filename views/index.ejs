@@ -1,0 +1,104 @@
+<%- include('header') -%>
+<title>Home</title>
+</head>
+<body>
+  <div class="container-fluid">
+<%- include('navbar') -%>
+<div class="row atn-carousel">
+  <div class="col-sm-12">
+      <div id="demo" class="carousel slide" data-ride="carousel">
+          <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+          </ul>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="/ATN/rl_zag_car_announce.jpg" alt="Los Angeles" width="1100" height="500">
+              <div class="carousel-caption">
+                <h3>Best Toys Cheap</h3>
+                <p>We have many good toys with cheap price</p>
+              </div>   
+            </div>
+            <div class="carousel-item">
+              <img src="/ATN/the-coolest-new-toys-2019.jpg" alt="Chicago" width="1100" height="500">
+              <div class="carousel-caption">
+                <h3>You Will Love It</h3>
+                <p>Making Your Child Feel Happy</p>
+              </div>   
+            </div>
+            <div class="carousel-item">
+              <img src="/ATN/toy+fair2.jpg" alt="New York" width="1100" height="500">
+              <div class="carousel-caption">
+                <h3>Best Toy</h3>
+                <p>We love Toys!</p>
+              </div>   
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
+        </div>
+  </div>
+</div><br>
+<% if(locals.store) { %>
+    <div class="jumbotron bg-info text-light atn-carousel">
+        <h1>Wellcome You Come To <%= store.name %> Store</h1> 
+        <p><%= store.info %></p> 
+    </div>  
+<% } %>
+    <div class="row">
+<% if(locals.product) { %>
+  <% for(var i = 0; i < product.length; i++) { %>
+      <div class="col-sm-3">
+          <div class="card">
+            <div class="card-img-top"><img width="200px" class="img-fluid rounded-circle" src="<%= product[i].img %>" alt=""></div>
+            <div class="card-body">
+              <h4 class="card-title"><%= product[i].name %> <%= product[i].price %> $ </h4>
+              <p class="card-text">
+                
+                <a onclick="add()" href="/card/<%= product[i].id %>" class="btn search d-flex">Add To Card</a>
+                <a href="/<%= product[i].store_id %>" class="btn search d-flex">See This Store</a>
+              </p>
+            </div>
+          </div>
+      </div>
+  <% } %>
+<% } %>
+    
+      
+    </div><br>
+<% if(locals.notstore) { %>
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="search page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="search page-link" href="?page=1">1</a></li>
+        <li class="page-item"><a class="search page-link" href="?page=2">2</a></li>
+        <li class="page-item"><a class="search page-link" href="?page=3">3</a></li>
+        <li class="page-item"><a class="search page-link" href="#">Next</a></li>
+    </ul>
+<% } %>
+<% if(locals.store) { %>
+  <ul class="pagination justify-content-center" id="myDIV">
+      <li class="page-item"><a class="search page-link" href="#">Previous</a></li>
+      <li class="page-item"><a class="search page-link" href="?page=1">1</a></li>
+      <li class="page-item"><a class="search page-link" href="?page=2">2</a></li>
+      <li class="page-item"><a class="search page-link" href="?page=3">3</a></li>
+      <li class="page-item"><a class="search page-link" href="#">Next</a></li>
+  </ul>
+<% } %>
+  </div>
+    <script>
+      function add() {
+        alert('Added Product')
+      }
+    </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

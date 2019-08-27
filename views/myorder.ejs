@@ -1,0 +1,117 @@
+<%- include('header') -%>
+<title>My Order</title>
+</head>
+<body>
+  <div class="container">
+<% if(locals.detail) { %>
+    <% var totalorder = 0 %>
+    <h1 class="text-center text-info">Detail Of Order</h1>
+    <table class="mx-auto table table-hover text-info">
+        <tr>
+            <th>Product's Name</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    <% for(var i = 0; i < detail.length; i++) { %>
+        <% totalorder += detail[i].total%>
+        <tr>
+            <td><%= detail[i].name %></td>
+            <td><img src="<%= detail[i].img %>" alt=""></td>
+            <td><%= detail[i].quantity %></td>
+            <td><%= detail[i].total %></td>
+        </tr>
+    <% } %>
+        <tr>
+            <th colspan="2">All You Need To Pay Is <%= totalorder %></th>
+            <th colspan="2"><a class="btn btn-block btn-info" href="/myorder">Back</a></th>
+        </tr>
+    </table>
+<% } else if(locals.myorder) { %>
+    <h1 class="text-center">This Is All Your Order</h1>
+      <table class="mx-auto table table-hover">
+        <tr>
+            <th>Order ID</th>
+            <th>DATE</th>
+            <th>Status</th>
+            <th>See Detail</th>
+        </tr>
+    <% for(var i = 0; i < myorder.length; i++) { %>
+        <tr>
+            <td><%= myorder[i].id %></td>
+            <td><%= myorder[i].order_date %></td>
+            <td><%= myorder[i].status %></td>
+            <td><a class="btn btn-info" href="/myorder/<%= myorder[i].id %>">Detail</a></td>
+        </tr>
+    <% } %>
+        <tr>
+            <td colspan="4"><a class="btn btn-block btn-info" href="/">Back</a></td>
+        </tr>
+    </table>
+<% } %>
+<!-- FOR ADMIN -->
+<% if(locals.admindetail) { %>
+    <% var totalorder = 0 %>
+    <h1 class="text-center text-info">Detail Of Order</h1>
+    <table class="mx-auto table table-hover text-info">
+        <tr>
+            <th>Product's Name</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    <% for(var i = 0; i < admindetail.length; i++) { %>
+        <% totalorder += admindetail[i].total%>
+        <tr>
+            <td><%= admindetail[i].name %></td>
+            <td><img src="<%= admindetail[i].img %>" alt=""></td>
+            <td><%= admindetail[i].quantity %></td>
+            <td><%= admindetail[i].total %></td>
+        </tr>
+    <% } %>
+        <tr>
+            <th colspan="2">All Customer Need To Pay Is <%= totalorder %></th>
+            <th colspan="2"><a class="btn btn-block btn-info" href="/admin/4">Back</a></th>
+        </tr>
+    </table>
+<% } else if(locals.adminmyorder) { %>
+    <h1 class="text-center">This Is All Customer Order</h1>
+      <table class="mx-auto table table-hover">
+        <tr>
+            <th>Order ID</th>
+            <th>DATE</th>
+            <th>Status</th>
+            <th>See Detail</th>
+        </tr>
+    <% for(var i = 0; i < adminmyorder.length; i++) { %>
+        <tr>
+            <td><%= adminmyorder[i].id %></td>
+            <td><%= adminmyorder[i].order_date %></td>
+            <td>
+        <% if (adminmyorder[i].status == 'WATING FOR CONFIRM') { %>
+            <a class="btn btn-primary" href="/admin/processorder?id=<%= adminmyorder[i].id %>&status=CONFIRM">CONFIRM</a>
+        <% } else if (adminmyorder[i].status == 'CONFIRM') { %>
+            <a class="btn btn-warning" href="/admin/processorder?id=<%= adminmyorder[i].id %>&status=GOING TO GET THE PRODUCT">GOING TO GET THE PRODUCT</a>
+        <% } else if (adminmyorder[i].status == 'GOING TO GET THE PRODUCT') { %>
+            <a class="btn btn-danger" href="/admin/processorder?id=<%= adminmyorder[i].id %>&status=ORDER IS BEING DELIVERED">ORDER IS BEING DELIVERED</a>
+        <% } else if (adminmyorder[i].status == 'ORDER IS BEING DELIVERED') { %>
+            <a class="btn btn-success" href="/admin/processorder?id=<%= adminmyorder[i].id %>&status=DONE">DONE</a>
+        <% } %>
+            </td>
+            <td><a class="btn btn-info" href="/admin/adminmyorder/<%= adminmyorder[i].id %>">Detail</a></td>
+        </tr>
+    <% } %>
+        <tr>
+            <td colspan="4"><a class="btn btn-block btn-info" href="/admin">Back</a></td>
+        </tr>
+    </table>
+<% } %>
+      
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

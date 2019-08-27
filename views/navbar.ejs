@@ -1,0 +1,37 @@
+<img src="/ATN/superman.png" alt="" class="superman">
+<nav class="navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand text-light" href="/?page=1"><img width="50px" src="/ATN/logo.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <form class="form-inline" action="/" method="POST">
+              <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
+              <button class="btn text-light search" type="submit">Search</button>
+            </form> 
+<% if(locals.username) { %>
+            <li class="nav-item"><a class="nav-link text-light">Hello <%= username %></a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/card">Card</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/myorder">Check My Order</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/logout">Logout</a>
+<% } else if(locals.storename) { %>
+            <li class="nav-item"><a class="nav-link text-light">Hello Store <%= storename %></a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/store/store-ui">Store UI</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/logout">Logout</a>
+<% } else if (locals.amin) { %>
+            <li class="nav-item"><a class="nav-link text-light">Hello <%= amin %></a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/admin/1">Admin-UI</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/logout">Logout</a>
+<% } else { %>
+            <li class="nav-item"><a class="nav-link text-light" href="/register">register</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/login">login</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/auth/facebook/callback">Login With Facebook</a></li>
+            <li class="nav-item"><a class="nav-link text-light" href="/store/login">Login for store</a></li>
+<% } %>
+            
+ 
+                
+          </ul>
+        </div>  
+</nav><br>

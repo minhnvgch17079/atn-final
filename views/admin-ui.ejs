@@ -1,0 +1,126 @@
+<%- include('header') -%>
+<title>Admin UI</title>
+</head>
+<body>
+  <div class="container">
+        <a class="btn btn-danger" href="/">Home</a>
+        <a class="btn btn-danger" href="/admin">Admin</a>
+        <a class="btn btn-primary" href="/admin/1">statistics</a>
+        <a class="btn btn-secondary" href="/admin/2">Manage Store Account</a>
+        <a class="btn btn-warning" href="/admin/3">Confirm Product</a>
+        <a class="btn btn-success" href="/admin/4">See Customer Order</a>
+        <a class="btn btn-primary" href="/logout">Logout</a>
+<% if(locals.statistics) { %> <!-- SHOW STATISTIC -->
+        <form action="/admin/1" method="POST">
+            <div class="form-group">
+                <label for="from">FROM</label>
+                <input class="form-control" type="date" name="from">
+            </div>
+            <div class="form-group">
+                <label for="to">TO</label>
+                <input class="form-control" type="date" name="to">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-info">See</button>
+            </div>
+        </form>
+<% } %>
+
+<% if(locals.results) { %> <!-- SHOW STATISTIC -->
+    <% if(results.length == 0) { %>
+        <h1 class="text-center text-info">No Have Statistics</h1>
+        <h1 class="text-center">
+            <a class="btn btn-info" href="/admin/1">Back</a>
+        </h1>
+    <% } else { %>
+        <table class="table table-hover">
+            <tr>
+                <th>Store Name</th>
+                <th>Statistic</th>
+            </tr>
+        <% for(var i = 0; i < results.length; i++) { %>
+            <tr>
+                <td><%= results[i].name %></td>
+                <td><%= results[i].sum %> $</td>
+            </tr>
+        <% } %>
+            <tr>
+                <td colspan="2"><a class="btn btn-block btn-info" href="/admin/1">Back</a></td>
+            </tr>
+        </table>
+    <% } %>
+<% } %>
+
+<% if(locals.account) { %> <!-- SHOW MANAGEMENT STORE ACCOUNT INTERFACE -->
+    <table class="table table-hover">
+        <tr>
+            <th>Store Name</th>
+            <th>Store Account</th>
+            <th>Store Infomation</th>
+            <th>Active Status</th>
+        </tr>
+    <% for(var i = 0; i < account.length; i++) { %>
+        <tr>
+            <td><%= account[i].name %></td>
+            <td><%= account[i].username %></td>
+            <td><%= account[i].info %></td>
+            <td><%= account[i].active %></td>
+        </tr>
+    <% } %>
+        <tr>
+            <td colspan="4"><a href="/admin" class="btn btn-block btn-info">Back</a></td>
+        </tr>
+    </table>
+<% } %>
+
+<% if(locals.product) { %> <!-- SHOW CONFIRM PRODUCT INTERFACE -->
+    <table class="table table-hover">
+        <tr>
+            <th>Product's Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Infomation</th>
+            <th>Confirm</th>
+        </tr>
+    <% for(var i = 0; i < product.length; i++) { %>
+        <tr>
+            <td><%= product[i].name %></td>
+            <td><%= product[i].price %></td>
+            <td><img width="150" height="150" src="<%= product[i].img %>" alt=""></td>
+            <td><%= product[i].info %></td>
+            <td>
+                <a class="btn btn-success" href="/admin/product?id=<%=product[i].id%>&show=TRUE">Accept</a>
+                <a class="btn btn-success" href="/admin/product?id=<%=product[i].id%>&show=FALSE">Refuse</a>
+            </td>
+        </tr>
+    <% } %>
+        <tr>
+            <td colspan="7"><a href="/admin" class="btn btn-block btn-info">Back</a></td>
+        </tr>
+    </table>
+<% } %>
+
+<% if(locals.refuse) { %>
+    <form action="/admin/refuse" method="POST">
+        <input type="hidden" name="id" value="<%= refuse %>">
+        <div class="form-group">
+            <label for="reason">Reason</label>
+            <input type="text" name="reason">
+        </div>
+
+        <div class="form-group">
+            <button type="submit">Submit</button>
+        </div>
+        
+    </form>
+<% } %>
+
+      </div>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

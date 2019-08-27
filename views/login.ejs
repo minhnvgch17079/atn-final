@@ -1,0 +1,68 @@
+<%- include('header') -%>
+<title>Login</title>
+</head>
+<body>
+  <div class="container">
+<%- include('navbar') -%>
+<% if(locals.result) { %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <strong><%= result %></strong> 
+  </div>
+<% } %>
+<% if(locals.err) { %>
+  <% for(var i = 0; i < err.length; i++) { %>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong><%= err[i].msg %></strong> 
+    </div>
+  <% } %>
+<% } %>
+      <h1 class="text-center text-success">ATN Login</h1>
+      <form action="" method="POST" class="text-success">
+        <div class="form-group">
+          <label for="username">UserName</label>
+          <input class="form-control" type="text" name="username" value="" id="username">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input class="form-control" type="password" name="password" value="" id="password">
+        </div>
+
+        <div class="form-group">
+          <label for="checkbox">Remember Password</label>
+          <input type="checkbox" id="checkbox" name="checkbox">
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-block btn-success" type="submit">Login</button>
+        </div>
+      </form>
+      <a class="btn btn-block btn-success" href="/">Back</a>
+    </div>
+      <script>
+        var decodeedCookied = decodeURIComponent(document.cookie)
+        var ca = decodeedCookied.split(';')
+        var username = ""
+        for (var i = 9; i < ca[0].length; i++) {
+          username += ca[0][i]
+        }
+        var password = ""
+        for (var i = 10; i < ca[1].length; i++) {
+          password += ca[1][i]
+        }
+        document.getElementById("username").value = username
+        document.getElementById("password").value = password
+      </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

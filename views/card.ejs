@@ -1,0 +1,44 @@
+<%- include('header') -%>
+<title>Card</title>
+</head>
+<body>
+  <div class="container">
+      <h1 class="text-center">This Is All Product That You Added</h1>
+    <table class="mx-auto table table-hover">
+      <tr>
+        <th>Product's Name</th>
+        <th>Image</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+      </tr>
+<% if(locals.added) { %>
+  <% for(var i = 0; i < added.length; i++) { %>
+    <tr>
+      <td><%= added[i].name %></td>
+      <td><img src="<%= added[i].img %>" alt=""></td>
+      <td><%= added[i].quantity %></td>
+      <td><%= added[i].totalprice %> $</td>
+      <td><a class="btn btn-warning" href="/card/delete/<%= added[i].id %>">Delete</a></td>
+    </tr>
+  <% } %>
+<% } %>
+    <tr>
+      <th colspan="5">
+        <a class="btn btn-success btn-block" href="card/order/ok">Order Now</a>
+      </th>
+    </tr>
+    <tr>
+        <th colspan="5">
+            <a class="btn btn-block btn-success" href="/">Back</a>
+        </th>
+    </tr>
+</table>
+  
+</div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
