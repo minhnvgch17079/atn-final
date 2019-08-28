@@ -1,6 +1,5 @@
 const {check, validationResult} = require('express-validator')
 const client = require('../../pg')
-const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 module.exports.processLogin = [
     check('username').not().isEmpty().withMessage('Please In Put Your UserName')
@@ -16,19 +15,15 @@ module.exports.processLogin = [
     if(errors.isEmpty()) {
         let sql = "SELECT * FROM store WHERE username = '"+username+"'"
         client.query(sql, (err, result) => {
-            bcrypt.compare(password, result.rows[0].password, (err, check) => {
-                if (check == true) {
-                    let token = jwt.sign({id: result.rows[0].id}, 'store')
-                    res.cookie('token', token, {domain: 'localhost'})
-                    res.redirect('/store/store-ui')
-                    /* sess.store = result.rows[0].username
-                    sess.storeid = result.rows[0].id */
-                } else {
-                    res.render('store-login', {
-                        result: 'Wrong username or password'
-                    })
-                }
-            })             
+            if(password == result.rows[0].password) {
+                let token = jwt.sign({id: result.rows[0].id}, 'store')
+                res.cookie('token', token, {domain: 'localhost'})
+                res.redirect('/store/store-ui')
+            } else {
+                res.render('store-login', {
+                    result: 'Wrong username or password'
+                })
+            }         
         })
     }else {
         res.render('store-login', {

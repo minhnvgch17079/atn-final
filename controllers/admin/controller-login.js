@@ -1,6 +1,5 @@
 const client = require('../../pg')
 let {check, validationResult} = require('express-validator')
-const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 module.exports.loginAdmin = [
     check('username').not().isEmpty().withMessage('Please Enter Your User Name')
@@ -15,23 +14,15 @@ module.exports.loginAdmin = [
     if(errors.isEmpty()) {
         let sql = "select * from atnadmin where username = '"+username+"'"
         client.query(sql, (err, result) => {
-            bcrypt.compare(password, result.rows[0].password, (err, check) => {
-                try {
-                    if(check == true) {
-                        let token = jwt.sign({id: result.rows[0].id}, 'admin')
-                        res.cookie('token', token, {domain: 'localhost'})
-                        res.redirect('/admin/1')
-                    } else {
-                        res.render('admin', {
-                            result: 'Wrong username and password'
-                        })
-                    }
-                } catch {
-                    res.render('admin', {
-                        result: 'Wrong username and password'
-                    })
-                }
-            })
+            if(password == result.rows[0].password) {
+                let token = jwt.sign({id: result.rows[0].id}, 'admin')
+                res.cookie('token', token, {domain: 'localhost'})
+                res.redirect('/admin/1')
+            } else {
+                res.render('admin', {
+                    result: 'Wrong username and password'
+                })
+            }
         })
     } else {
         res.render('admin', {

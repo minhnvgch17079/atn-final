@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt')
 const client = require('../../pg')
 const jwt = require('jsonwebtoken')
 let {check, validationResult} = require('express-validator')
@@ -37,17 +36,15 @@ module.exports.loginProcess = [
     if(errors.isEmpty()) {
         sql = "SELECT * FROM customer WHERE username = '"+username+"'"
         client.query(sql, function(err, result) {
-            bcrypt.compare(password, result.rows[0].password, (err, check) => {
-                if(check == true) {
-                    let token = jwt.sign({id: result.rows[0].id}, 'customer')
-                    res.cookie('token', token, {domain: 'localhost'})
-                    res.redirect('/card')
-                } else {
-                    res.render('login', {
-                        result: 'wrong Username Or Password'
-                    })
-                }
-            })
+            if(password == result.rows[0].password) {
+                let token = jwt.sign({id: result.rows[0].id}, 'customer')
+                res.cookie('token', token, {domain: 'localhost'})
+                res.redirect('/card')
+            } else {
+                res.render('login', {
+                    result: 'wrong Username Or Password'
+                })
+            }
         })
     } else {
         res.render('login', {

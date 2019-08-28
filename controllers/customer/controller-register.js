@@ -1,5 +1,3 @@
-const bcrypt = require('bcrypt')
-const satlRounds = 10
 let client = require('../../pg')
 let {check, validationResult} = require('express-validator')
 
@@ -31,7 +29,6 @@ module.exports.processRegister = [
                     input: q
                 })
             } else {
-                bcrypt.hash(password, satlRounds, (err, hash) => {
                     try {
                         sql = "insert into customer(username, password, info) values "
                         sql += "('"+username+"', '"+hash+"', '"+info+"')"
@@ -48,7 +45,7 @@ module.exports.processRegister = [
                     } catch {
                         console.log('err in line 49 controller.member.register')
                     }
-                })
+                
             }
         })
     } else {
