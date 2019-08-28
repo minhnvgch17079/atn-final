@@ -38,7 +38,7 @@ module.exports.loginProcess = [
         client.query(sql, function(err, result) {
             if(password == result.rows[0].password) {
                 let token = jwt.sign({id: result.rows[0].id}, 'customer')
-                res.cookie('token', token, {domain: 'localhost'})
+                res.cookie('token', token)
                 res.redirect('/card')
             } else {
                 res.render('login', {
