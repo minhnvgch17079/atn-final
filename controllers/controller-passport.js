@@ -115,7 +115,7 @@ passport.use('jwt-admin', new JwtStrategy(admin, (jwt_payload, done) => {
 passport.use(new FacebookStrategy({
     clientID: '2116149092027626',
     clientSecret: '76386da06a2ff3882bd76af5e211494c',
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    callbackURL: "https://atn-final.herokuapp.com/auth/facebook/callback"
 }, (accessToken, refreshToken, profile, cb) => {
     let sql = "SELECT * FROM customer WHERE username = '"+profile.id+"'" 
     client.query(sql, (err, result) => {
