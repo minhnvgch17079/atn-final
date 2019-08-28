@@ -56,6 +56,6 @@ module.exports.loginProcess = [
 
 module.exports.facebook = (req, res) => {
     let token = jwt.sign({id: req.user.id}, 'customer')
-    res.cookie('token', token)
+    res.cookie('token', token, {domain: 'atn-final.herokuapp.com'})
     res.redirect('/')
 }
