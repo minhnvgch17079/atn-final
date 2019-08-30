@@ -31,7 +31,7 @@ module.exports.processRegister = [
             } else {
                     try {
                         sql = "insert into customer(username, password, info) values "
-                        sql += "('"+username+"', '"+hash+"', '"+info+"')"
+                        sql += "('"+username+"', '"+password+"', '"+info+"')"
                         client.query(sql, (err, r) => {
                             try {
                                 res.render('register', {
@@ -45,7 +45,6 @@ module.exports.processRegister = [
                     } catch {
                         console.log('err in line 49 controller.member.register')
                     }
-                
             }
         })
     } else {
